@@ -8,6 +8,26 @@ body {
 
 @layer base {
   :root {
+    /* Main colors */
+    --custom-dark-green: 155, 122%, 15%;
+    --custom-emerald: 140, 50%, 40%;
+    --custom-navy: 240, 40%, 20%;
+    --custom-gold: 50, 90%, 60%;
+    --custom-beige: 40, 30%, 90%;
+    /* Additional palette colors */
+    --custom-teal: 200, 60%, 40%;
+    --custom-terracotta: 20, 60%, 50%;
+    --custom-peach: 30, 70%, 80%;
+    --custom-olive: 82, 39%, 29%; /* Olive for header */
+    --custom-offWhite: 40, 30%, 98%;
+    --custom-lightGray: 0, 0%, 87%;
+    --custom-charcoal: 0, 0%, 27%;
+    --custom-black: 0, 0%, 0%;
+    --custom-red: 0, 70%, 50%;
+    --custom-orange: 35, 80%, 60%;
+    --custom-mint: 150, 50%, 70%;
+    --custom-skyBlue: 210, 60%, 60%;
+
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;

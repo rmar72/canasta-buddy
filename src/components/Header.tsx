@@ -4,18 +4,18 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export default function Header() {
   return (
-    <header className="border-b bg-blue-600 text-white">
+    <header className="border-b bg-darkGreen text-white">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <div className="text-xl font-bold">Canasta Buddy</div>
+        <div className="text-xl font-bold text-offWhite hover:text-gold">Canasta Buddy</div>
         <nav className="hidden md:flex space-x-4">
           <Link href="/" passHref>
-            <Button variant="link">Home</Button>
+            <Button variant="link" className="text-offWhite hover:text-mint">Home</Button>
           </Link>
           <Link href="/about" passHref>
-            <Button variant="link">About</Button>
+            <Button variant="link" className="text-offWhite hover:text-mint">About</Button>
           </Link>
           <Link href="/contact" passHref>
-            <Button variant="link">Contact</Button>
+            <Button variant="link" className="text-offWhite hover:text-mint">Contact</Button>
           </Link>
         </nav>
         <div className="md:hidden">

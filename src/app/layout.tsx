@@ -27,7 +27,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header className="bg-blue-500 text-white py-4 px-6">
+          <h1 className="text-lg font-bold">Food Budget Companion</h1>
+        </header>
+        <main className="p-6">
+          {children}
+        </main>
       </body>
     </html>
   );

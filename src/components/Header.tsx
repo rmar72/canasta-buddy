@@ -40,9 +40,9 @@ export default function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" passHref>
+                  <Link href="/canastas" passHref>
                     <Button variant="ghost" className="w-full text-left">
-                      Contact
+                      My Canastas
                     </Button>
                   </Link>
                 </li>

@@ -33,7 +33,9 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/login",
-    error: "/login", // Redirect to login page on errors
+    signOut: "/logout",
+    error: "/login",
+    signUp: "/sign-up", // Add the sign-up page
   },
   session: {
     strategy: "jwt" as const, // Fix the type by explicitly declaring it as a constant

@@ -11,11 +11,11 @@ export default function Header() {
           <Link href="/" passHref>
             <Button variant="link" className="text-offWhite hover:text-mint">Home</Button>
           </Link>
+          <Link href="/contact" passHref>
+            <Button variant="link" className="text-offWhite hover:text-mint">My Canasta</Button>
+          </Link>
           <Link href="/about" passHref>
             <Button variant="link" className="text-offWhite hover:text-mint">About</Button>
-          </Link>
-          <Link href="/contact" passHref>
-            <Button variant="link" className="text-offWhite hover:text-mint">Contact</Button>
           </Link>
         </nav>
         <div className="md:hidden">
@@ -33,16 +33,16 @@ export default function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" passHref>
+                  <Link href="/my-canastas" passHref>
                     <Button variant="ghost" className="w-full text-left">
-                      About
+                      My Canasta
                     </Button>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/canastas" passHref>
+                  <Link href="/about" passHref>
                     <Button variant="ghost" className="w-full text-left">
-                      My Canastas
+                      About
                     </Button>
                   </Link>
                 </li>

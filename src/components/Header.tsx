@@ -11,7 +11,7 @@ export default function Header() {
           <Link href="/" passHref>
             <Button variant="link" className="text-offWhite hover:text-mint">Home</Button>
           </Link>
-          <Link href="/contact" passHref>
+          <Link href="/my-canasta" passHref>
             <Button variant="link" className="text-offWhite hover:text-mint">My Canasta</Button>
           </Link>
           <Link href="/about" passHref>
@@ -33,7 +33,7 @@ export default function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/my-canastas" passHref>
+                  <Link href="/my-canasta" passHref>
                     <Button variant="ghost" className="w-full text-left">
                       My Canasta
                     </Button>

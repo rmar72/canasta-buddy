@@ -64,9 +64,10 @@ function reducer(state: State, action: Action): State {
 
 export default function MyCanasta() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log("Canastas:", state.canastas);
   const [name, setName] = useState("");
   const [budgetAmount, setBudgetAmount] = useState(0);
+  const [selectedTab, setSelectedTab] = useState("empty"); // Manage selected tab state
+
 
   // Fetch existing Canastas on mount
   useEffect(() => {
@@ -75,6 +76,9 @@ export default function MyCanasta() {
       try {
         const data = await fetchCanastasApi();
         dispatch({ type: "FETCH_SUCCESS", payload: data });
+        if (data.length > 0) {
+          setSelectedTab(data[0].name); // Automatically select the first tab
+        }
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "Something went wrong.";
         dispatch({ type: "FETCH_ERROR", payload: errorMessage });      }
@@ -105,7 +109,7 @@ export default function MyCanasta() {
       dispatch({ type: "FETCH_ERROR", payload: errorMessage });
     }
   };
-
+  
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
       <main className="flex flex-col gap-4 row-start-2 sm:items-center max-w-5xl w-full sm:px-0">
@@ -135,8 +139,12 @@ export default function MyCanasta() {
           {state.error && <p className="text-red-500 text-center">{state.error}</p>}
         </div>
 
-        <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList className="">
+        <Tabs
+          value={selectedTab}
+          onValueChange={(value) => setSelectedTab(value)}
+          className="w-full max-w-2xl mx-auto mt-4"
+        >
+          <TabsList className="flex justify-center gap-2">
             {state.canastas.map((canasta) => (
             <TabsTrigger key={`tab-${canasta._id}`} value={canasta.name}>{canasta.name}</TabsTrigger>
             ))}
@@ -146,6 +154,11 @@ export default function MyCanasta() {
               <BudgetCalculator initialBudget={canasta.budget} />
             </TabsContent>
           ))}
+          {state.canastas.length === 0 && (
+            <TabsContent value={"empty"}> 
+              <div>No Canastas Found</div> 
+            </TabsContent>
+          )}
         </Tabs>
       </main>
     </div>

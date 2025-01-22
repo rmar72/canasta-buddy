@@ -5,10 +5,8 @@ export async function verifyUser(email: string, password: string) {
   try {
     const client = await clientPromise;
     const db = client.db();
-    console.log("Connecting to MongoDB...");
 
     const user = await db.collection("users").findOne({ email });
-    console.log("user from DB:", user);
 
     if (!user) return null;
 

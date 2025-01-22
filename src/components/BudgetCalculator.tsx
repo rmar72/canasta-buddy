@@ -1,30 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { addItemToCanastaApi } from "@/lib/api/canastas";
+import { FoodItem, BudgetCalculatorProps } from "@/types/canasta";
 
-
-type FoodItem = {
-  id: number;
-  name: string;
-  price: number;
-};
-
-type BudgetCalculatorProps = {
-  initialBudget: number;
-  canastaId: string; // Pass canastaId for API calls
-};
-
-export default function BudgetCalculator({ initialBudget, canastaId }: BudgetCalculatorProps) {
-  const [items, setItems] = useState<FoodItem[]>([]);
+export default function BudgetCalculator({ initialBudget, canastaId, items: initialItems }: BudgetCalculatorProps) {
+  const [items, setItems] = useState<FoodItem[]>(initialItems);
   const [remainingBudget, setRemainingBudget] = useState(initialBudget);
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
   const [error, setError] = useState("");
 
+  // Calculate remaining budget when items change
+  useEffect(() => {
+    const totalSpent = items.reduce((sum, item) => sum + item.price, 0);
+    setRemainingBudget(initialBudget - totalSpent);
+  }, [items, initialBudget]);
+  
   const addItem = async () => {
     const price = parseFloat(itemPrice);
 
@@ -53,10 +48,6 @@ export default function BudgetCalculator({ initialBudget, canastaId }: BudgetCal
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
-    // setItems([...items, newItem]);
-    // setRemainingBudget(remainingBudget - price);
-    // setItemName("");
-    // setItemPrice("");
   };
 
   return (

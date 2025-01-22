@@ -11,32 +11,8 @@ import {
 } from "@/components/ui/tabs"
 import BudgetCalculator from "@/components/BudgetCalculator";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
+import { State, Action, initialState } from "@/types/canasta";
 
-interface Canasta {
-  _id: string;
-  name: string;
-  budget: number;
-}
-
-interface State {
-  loading: boolean;
-  error: string;
-  canastas: Canasta[];
-}
-
-type Action =
-  | { type: "FETCH_START" }
-  | { type: "FETCH_SUCCESS"; payload: Canasta[] }
-  | { type: "FETCH_ERROR"; payload: string }
-  | { type: "CREATE_START" }
-  | { type: "CREATE_SUCCESS"; payload: Canasta }
-  | { type: "CREATE_ERROR"; payload: string };
-
-const initialState: State = {
-  loading: false,
-  error: "",
-  canastas: [],
-};
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -151,7 +127,11 @@ export default function MyCanasta() {
           </TabsList>
           {state.canastas.map((canasta) => (
             <TabsContent key={`tab-content-${canasta._id}`} value={canasta.name}>
-              <BudgetCalculator initialBudget={canasta.budget} canastaId={canasta._id} />
+              <BudgetCalculator
+                initialBudget={canasta.budget}
+                canastaId={canasta._id}
+                items={canasta.items || []}
+              />
             </TabsContent>
           ))}
           {state.canastas.length === 0 && (

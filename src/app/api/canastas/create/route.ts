@@ -25,7 +25,10 @@ export async function POST(req: Request) {
     const result = await addCanasta(userId, name, budget);
 
     return NextResponse.json(
-      { message: "Canasta created", canastaId: result.insertedId },
+      {
+        message: "Canasta created",
+        newCanasta: { name, budget, _id: result.insertedId, userId: session.user.id, items: [] },
+      },
       { status: 201 }
     );
   } catch (error) {

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { addItemToCanastaApi } from "@/lib/api/canastas";
+
 
 type FoodItem = {
   id: number;
@@ -13,15 +15,17 @@ type FoodItem = {
 
 type BudgetCalculatorProps = {
   initialBudget: number;
+  canastaId: string; // Pass canastaId for API calls
 };
 
-export default function BudgetCalculator({ initialBudget }: BudgetCalculatorProps) {
+export default function BudgetCalculator({ initialBudget, canastaId }: BudgetCalculatorProps) {
   const [items, setItems] = useState<FoodItem[]>([]);
   const [remainingBudget, setRemainingBudget] = useState(initialBudget);
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
+  const [error, setError] = useState("");
 
-  const addItem = () => {
+  const addItem = async () => {
     const price = parseFloat(itemPrice);
 
     if (!itemName || isNaN(price) || price <= 0) {
@@ -40,10 +44,19 @@ export default function BudgetCalculator({ initialBudget }: BudgetCalculatorProp
       price: price,
     };
 
-    setItems([...items, newItem]);
-    setRemainingBudget(remainingBudget - price);
-    setItemName("");
-    setItemPrice("");
+    try {
+      await addItemToCanastaApi(canastaId, newItem);
+      setItems([...items, newItem]);
+      setRemainingBudget(remainingBudget - price);
+      setItemName("");
+      setItemPrice("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    }
+    // setItems([...items, newItem]);
+    // setRemainingBudget(remainingBudget - price);
+    // setItemName("");
+    // setItemPrice("");
   };
 
   return (
@@ -69,6 +82,7 @@ export default function BudgetCalculator({ initialBudget }: BudgetCalculatorProp
             onChange={(e) => setItemPrice(e.target.value)}
           />
           <Button onClick={addItem}>Add Item</Button>
+          {error && <p className="text-red-500">{error}</p>}
         </div>
         <ul>
           {items.map((item) => (

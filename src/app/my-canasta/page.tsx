@@ -151,7 +151,7 @@ export default function MyCanasta() {
           </TabsList>
           {state.canastas.map((canasta) => (
             <TabsContent key={`tab-content-${canasta._id}`} value={canasta.name}>
-              <BudgetCalculator initialBudget={canasta.budget} />
+              <BudgetCalculator initialBudget={canasta.budget} canastaId={canasta._id} />
             </TabsContent>
           ))}
           {state.canastas.length === 0 && (

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 type FoodItem = {
   id: number;
@@ -48,9 +48,6 @@ export default function BudgetCalculator({ initialBudget }: BudgetCalculatorProp
 
   return (
     <Card className="p-4">
-      <CardHeader>
-        <CardTitle>Budget Calculator</CardTitle>
-      </CardHeader>
       <CardContent>
         <p className="mb-4">
           Total Budget: <span className="font-semibold">${initialBudget.toFixed(2)}</span>

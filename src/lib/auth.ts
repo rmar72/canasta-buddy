@@ -1,8 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyUser } from "@/db/users";
+import { JWT } from "next-auth/jwt";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Email and Password",
@@ -35,10 +36,24 @@ export const authOptions = {
     signIn: "/login",
     signOut: "/logout",
     error: "/login",
-    signUp: "/sign-up", // Add the sign-up page
+    // signUp: "/sign-up", // Add the sign-up page
   },
   session: {
     strategy: "jwt" as const, // Fix the type by explicitly declaring it as a constant
+  },
+  callbacks: {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: Session; token: JWT }) {
+      session.user.id = token.id;
+      session.user.email = token.email;
+      return session;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET, // Ensure this is set in your .env file
 };

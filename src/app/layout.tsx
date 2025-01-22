@@ -1,9 +1,9 @@
-// "use client";
-import type { Metadata } from "next";
+"use client";
+// import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from '@/components/Header';
-// import { SessionProvider } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Canasta Buddy",
-  description: "Friendly budgeting tool",
-};
+// export const metadata: Metadata = {
+//   title: "Canasta Buddy",
+//   description: "Friendly budgeting tool",
+// };
 
 export default function RootLayout({
   children,
@@ -32,8 +32,8 @@ export default function RootLayout({
       >
          <Header />
         <main className="p-3">
-          {children}
-          {/* <SessionProvider>{children}</SessionProvider> */}
+          {/* {children} */}
+          <SessionProvider>{children}</SessionProvider>
         </main>
       </body>
     </html>

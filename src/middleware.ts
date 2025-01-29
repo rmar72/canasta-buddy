@@ -1,5 +1,5 @@
 export { default } from "next-auth/middleware"
 
 export const config = {
-  matcher: ["/", "/about"], // Protect these routes
+  matcher: ["/", "/my-canasta"], // Protect these routes
 };

@@ -4,7 +4,7 @@ import clientPromise from '@/db/mongodb';
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db('canasta-buddy'); // Replace 'test' with your database name
+    const db = client.db('canasta-buddy');
 
     const collections = await db.listCollections().toArray();
 

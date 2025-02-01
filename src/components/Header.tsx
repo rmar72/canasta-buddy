@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@/components/shadcn-ui-components/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn-ui-components/popover';
 
 export default function Header() {
   return (

@@ -34,7 +34,7 @@
 //     </div>
 //   );
 // }
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/shadcn-ui-components/card";
 
 export default function AboutPage() {
   return (

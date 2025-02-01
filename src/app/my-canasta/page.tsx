@@ -1,14 +1,14 @@
 "use client";
 
 import { useReducer, useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/shadcn-ui-components/input";
+import { Button } from "@/components/shadcn-ui-components/button";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/shadcn-ui-components/tabs"
 import BudgetCalculator from "@/components/BudgetCalculator";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
 import { State, Action, initialState } from "@/types/canasta";
@@ -85,6 +85,8 @@ export default function MyCanasta() {
       dispatch({ type: "FETCH_ERROR", payload: errorMessage });
     }
   };
+
+  console.log('stateloading', state.loading)
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">

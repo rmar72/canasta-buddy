@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/shadcn-ui-components/input";
+import { Button } from "@/components/shadcn-ui-components/button";
+import { Card, CardContent } from "@/components/shadcn-ui-components/card";
 import { addItemToCanastaApi } from "@/lib/api/canastas";
 import { FoodItem, BudgetCalculatorProps } from "@/types/canasta";
 
@@ -49,6 +49,8 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
   };
+
+  console.log('ids', items.map((item) => item))
 
   return (
     <Card className="p-4">

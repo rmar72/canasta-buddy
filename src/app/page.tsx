@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shadcn-ui-components/button';
 
 export default function Home() {
   return (

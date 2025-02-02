@@ -92,34 +92,65 @@ export default function MyCanasta() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
       <main className="flex flex-col gap-4 row-start-1 sm:items-center max-w-5xl w-full sm:px-0">
-        <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
-          <div className="flex items-center space-x-4">
+      <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
+        <div className="flex items-center gap-4">
+          <div className="flex-grow">
+            <label
+              htmlFor="canastaName"
+              className="block text-xs font-medium text-gray-700 mb-1"
+            >
+              Canasta Name
+            </label>
             <Input
+              id="canastaName"
               placeholder="New Canasta"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="flex-grow"
-            />
-          <div className="relative w-32">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-500">$</span>
-            <Input
-              value={budgetAmount}
-              onChange={(e) => setBudgetAmount(Number(e.target.value))}
-              onFocus={(e) => e.target.select()} 
-              className="pl-6 w-full"
-              type="number"
+              className="w-full"
             />
           </div>
+
+          <div className="relative w-32">
+            <label
+              htmlFor="budgetAmount"
+              className="block text-xs font-medium text-gray-700 mb-1"
+            >
+              Budget Amount
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-2 flex items-center text-gray-500 pointer-events-none">$</span>
+              <Input
+                id="budgetAmount"
+                value={budgetAmount}
+                onChange={(e) => setBudgetAmount(Number(e.target.value))}
+                onFocus={(e) => e.target.select()}
+                className="pl-6 w-full"
+                type="number"
+              />
+            </div>
+          </div>
+
+          <div className="flex-none">
             <Button
               variant="default"
               onClick={handleCreateCanasta}
               disabled={state.loading}
+              className="mt-5 sm:mt-[20px]"
             >
               + New
             </Button>
           </div>
-          {state.error && <p className="text-red-500 text-center">{state.error}</p>}
         </div>
+
+        {state.error && (
+          <p
+            className="text-center animate-fadeIn"
+            style={{ animation: "fadeIn 0.8s ease-in-out", color: 'red' }}
+          >
+            {state.error}
+          </p>
+        )}
+      </div>
 
         <Tabs
           value={selectedTab}

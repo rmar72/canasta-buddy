@@ -30,7 +30,7 @@ export async function createCanastaApi({ name, budgetAmount }: CreateCanastaArgs
   return data.newCanasta
 }
 
-export async function addItemToCanastaApi(canastaId: string, item: { name: string; price: number }) {
+export async function addItemToCanastaApi(canastaId: string, item: { name: string; price: number, id: string }) {
   const response = await fetch("/api/canastas/add-item", {
     method: "POST",
     headers: {

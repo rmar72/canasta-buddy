@@ -6,6 +6,7 @@ import { Button } from "@/components/shadcn-ui-components/button";
 import { Card, CardContent } from "@/components/shadcn-ui-components/card";
 import { addItemToCanastaApi } from "@/lib/api/canastas";
 import { FoodItem, BudgetCalculatorProps } from "@/types/canasta";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BudgetCalculator({ initialBudget, canastaId, items: initialItems }: BudgetCalculatorProps) {
   const [items, setItems] = useState<FoodItem[]>(initialItems);
@@ -33,10 +34,11 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
       return;
     }
 
+  const uniqueId = uuidv4()
     const newItem = {
-      id: items.length + 1,
       name: itemName,
       price: price,
+      id: uniqueId,
     };
 
     try {

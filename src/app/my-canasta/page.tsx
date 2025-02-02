@@ -85,8 +85,6 @@ export default function MyCanasta() {
       dispatch({ type: "FETCH_ERROR", payload: errorMessage });
     }
   };
-
-  console.log('stateloading', state.loading)
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">

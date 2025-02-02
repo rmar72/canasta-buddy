@@ -1,7 +1,7 @@
 // src/types/canasta.ts
 
 export interface FoodItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
 }

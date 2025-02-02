@@ -59,7 +59,7 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
           Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
         </p>
         <div className="w-px h-auto bg-gray-200"></div>
-        <p className="flex-1 flex flex-col items-center justify-center bg-yellow-50 text-yellow-800 p-1 rounded-lg shadow-inner">
+        <p className="flex-1 flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-1 rounded-lg shadow-inner">
           Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
         </p>
       </div>
@@ -73,11 +73,13 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
             />
           </div>
           <div className="relative w-full sm:w-40">
+            <span className="absolute inset-y-0 left-2 flex items-center text-gray-500 pointer-events-none">$</span>
             <Input
               type="number"
-              placeholder="$ Item Price"
+              placeholder="Item Price"
               value={itemPrice}
               onChange={(e) => setItemPrice(e.target.value)}
+              className="pl-5"
             />
           </div>
           <Button className="w-full sm:w-auto" onClick={addItem}>Add Item</Button>

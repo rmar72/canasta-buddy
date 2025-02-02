@@ -124,7 +124,7 @@ export default function MyCanasta() {
                 value={budgetAmount}
                 onChange={(e) => setBudgetAmount(Number(e.target.value))}
                 onFocus={(e) => e.target.select()}
-                className="pl-6 w-full"
+                className="pl-5 w-full"
                 type="number"
               />
             </div>

@@ -29,19 +29,19 @@ export default function SettingsMenu() {
           <DropdownMenuItem>
             Edit Canasta
             <DropdownMenuShortcut>
-              <AiTwotoneEdit />
+              <AiTwotoneEdit size={18} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
             Archive Canasta
             <DropdownMenuShortcut>
-              <AiTwotoneFolder />
+              <AiTwotoneFolder size={18} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
             Delete Canasta
             <DropdownMenuShortcut>
-              <AiTwotoneDelete />
+              <AiTwotoneDelete size={18} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -44,7 +44,6 @@ export default function MyCanasta() {
   const [budgetAmount, setBudgetAmount] = useState(0);
   const [selectedTab, setSelectedTab] = useState("empty"); // Manage selected tab state
 
-
   // Fetch existing Canastas on mount
   useEffect(() => {
     async function fetchCanastas() {
@@ -78,13 +77,17 @@ export default function MyCanasta() {
     try {
       const newCanasta = await createCanastaApi({ name, budgetAmount });
       dispatch({ type: "CREATE_SUCCESS", payload: newCanasta });
-      setName("");
-      setBudgetAmount(0);
+      resetInputs();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Something went wrong.";
       dispatch({ type: "FETCH_ERROR", payload: errorMessage });
     }
   };
+
+  const resetInputs = () => {
+    setName("");
+    setBudgetAmount(0);
+  }
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
@@ -97,13 +100,16 @@ export default function MyCanasta() {
               onChange={(e) => setName(e.target.value)}
               className="flex-grow"
             />
+          <div className="relative w-32">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-500">$</span>
             <Input
-              placeholder="Budget Amount"
               value={budgetAmount}
               onChange={(e) => setBudgetAmount(Number(e.target.value))}
-              className="w-24"
+              onFocus={(e) => e.target.select()} 
+              className="pl-6 w-full"
               type="number"
             />
+          </div>
             <Button
               variant="default"
               onClick={handleCreateCanasta}

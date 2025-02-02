@@ -34,11 +34,10 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
       return;
     }
 
-  const uniqueId = uuidv4()
     const newItem = {
       name: itemName,
       price: price,
-      id: uniqueId,
+      id: uuidv4(),
     };
 
     try {
@@ -51,8 +50,6 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
   };
-
-  console.log('ids', items.map((item) => item))
 
   return (
     <Card className="p-4">

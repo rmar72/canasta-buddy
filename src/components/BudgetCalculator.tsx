@@ -25,12 +25,12 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
     const price = parseFloat(itemPrice);
 
     if (!itemName || isNaN(price) || price <= 0) {
-      alert("Please provide a valid item name and price.");
+      setError("Please provide a valid item name and price.");
       return;
     }
 
     if (remainingBudget - price < 0) {
-      alert("Adding this item exceeds your budget!");
+      setError("Adding this item exceeds your budget!");
       return;
     }
 
@@ -54,28 +54,43 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
   return (
     <Card className="p-4">
       <CardContent>
-        <p className="mb-4">
-          Total Budget: <span className="font-semibold">${initialBudget.toFixed(2)}</span>
+      <div className="flex flex-col sm:flex-row justify-between items-center p-4 rounded-lg mb-0 sm:mb-3">
+        <p className="mb-4 sm:mb-0 bg-gray-100 p-2 rounded">
+          Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
         </p>
-        <p className="mb-4">
-          Remaining Budget: <span className="font-semibold">${remainingBudget.toFixed(2)}</span>
+        <p className="mb-4 sm:mb-0 bg-gray-100 p-2 rounded">
+          Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
         </p>
-        <div className="flex items-center gap-4 mb-4">
-          <Input
-            type="text"
-            placeholder="Item Name"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
-          />
-          <Input
-            type="number"
-            placeholder="Item Price"
-            value={itemPrice}
-            onChange={(e) => setItemPrice(e.target.value)}
-          />
-          <Button onClick={addItem}>Add Item</Button>
-          {error && <p className="text-red-500">{error}</p>}
+      </div>
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
+          <div className="relative w-full sm:w-80">
+            <Input
+              type="text"
+              placeholder="Item Name"
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
+            />
+          </div>
+          <div className="relative w-full sm:w-40">
+            <Input
+              type="number"
+              placeholder="$ Item Price"
+              value={itemPrice}
+              onChange={(e) => setItemPrice(e.target.value)}
+            />
+          </div>
+          <Button className="w-full sm:w-auto" onClick={addItem}>Add Item</Button>
         </div>
+
+        {error && (
+          <p
+            className="text-center animate-fadeIn"
+            style={{ animation: "fadeIn 0.8s ease-in-out", color: 'red' }}
+          >
+            {error}
+          </p>
+        )}
+
         <ul>
           {items.map((item) => (
             <li key={item.id} className="flex justify-between border-b py-2">

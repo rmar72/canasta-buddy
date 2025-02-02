@@ -52,13 +52,14 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
   };
 
   return (
-    <Card className="p-4">
+    <Card className="p-4 mt-4">
       <CardContent>
-      <div className="flex flex-col sm:flex-row justify-between items-center p-4 rounded-lg mb-0 sm:mb-3">
-        <p className="mb-4 sm:mb-0 bg-gray-100 p-2 rounded">
+      <div className="flex flex-row justify-between items-center py-4 pt-0 rounded-lg mb-3 space-x-2">
+        <p className="flex-1 flex flex-col items-center justify-center bg-blue-50 text-blue-800 p-1 rounded-lg shadow-inner">
           Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
         </p>
-        <p className="mb-4 sm:mb-0 bg-gray-100 p-2 rounded">
+        <div className="w-px h-auto bg-gray-200"></div>
+        <p className="flex-1 flex flex-col items-center justify-center bg-yellow-50 text-yellow-800 p-1 rounded-lg shadow-inner">
           Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
         </p>
       </div>

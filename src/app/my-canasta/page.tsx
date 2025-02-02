@@ -91,8 +91,8 @@ export default function MyCanasta() {
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
-      <main className="flex flex-col gap-4 row-start-2 sm:items-center max-w-5xl w-full sm:px-0">
-        <div className="w-full max-w-2xl mx-auto mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
+      <main className="flex flex-col gap-4 row-start-1 sm:items-center max-w-5xl w-full sm:px-0">
+        <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
           <div className="flex items-center space-x-4">
             <Input
               placeholder="New Canasta"
@@ -124,11 +124,19 @@ export default function MyCanasta() {
         <Tabs
           value={selectedTab}
           onValueChange={(value) => setSelectedTab(value)}
-          className="w-full max-w-2xl mx-auto mt-4"
+          className="w-full max-w-2xl mt-1"
         >
-          <TabsList className="flex justify-center gap-2">
+          <TabsList className="flex justify-center gap-2 bg-gray-100 p-6 rounded-lg shadow-md">
             {state.canastas.map((canasta) => (
-            <TabsTrigger key={`tab-${canasta._id}`} value={canasta.name}>{canasta.name}</TabsTrigger>
+              <TabsTrigger 
+                className={`px-4 py-2 text-sm font-semibold rounded-lg focus:outline-none 
+                  data-[state=active]:bg-green-200 data-[state=active]:text-green-800 
+                  bg-white text-gray-700 hover:bg-green-200 hover:text-green-800`}
+                key={`tab-${canasta._id}`} 
+                value={canasta.name}
+              >
+                {canasta.name}
+              </TabsTrigger>
             ))}
           </TabsList>
           {state.canastas.map((canasta) => (

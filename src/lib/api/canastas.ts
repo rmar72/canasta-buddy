@@ -1,4 +1,5 @@
 // src/lib/api/canastas.ts
+import { FoodItem } from "@/types/canasta";
 
 export async function fetchCanastasApi() {
   const response = await fetch("/api/canastas");
@@ -42,6 +43,23 @@ export async function addItemToCanastaApi(canastaId: string, item: { name: strin
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.error || "Failed to add item");
+  }
+
+  return await response.json();
+}
+
+export async function updateCanasta(canastaId: string, updatedData: Partial<{ name: string; budget: number; items: FoodItem[] }>) {
+  const response = await fetch("/api/canastas/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ canastaId, ...updatedData }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Failed to update canasta");
   }
 
   return await response.json();

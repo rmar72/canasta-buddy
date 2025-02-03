@@ -9,7 +9,7 @@ import { FoodItem, BudgetCalculatorProps } from "@/types/canasta";
 import { v4 as uuidv4 } from "uuid";
 import SettingsMenu from "@/components/SettingsMenu";
 
-export default function BudgetCalculator({ initialBudget, canastaId, items: initialItems }: BudgetCalculatorProps) {
+export default function BudgetCalculator({ initialBudget, canastaId, items: initialItems, setShowEditCanasta }: BudgetCalculatorProps) {
   const [items, setItems] = useState<FoodItem[]>(initialItems);
   const [remainingBudget, setRemainingBudget] = useState(initialBudget);
   const [itemName, setItemName] = useState("");
@@ -63,7 +63,7 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
           <p className="flex-1 flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-1 rounded-lg shadow-inner">
             Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
           </p>
-          <SettingsMenu />
+          <SettingsMenu onEdit={() => setShowEditCanasta(true)} />
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
           <div className="relative w-full sm:w-80">

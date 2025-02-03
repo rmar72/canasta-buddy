@@ -10,6 +10,7 @@ import {
   TabsTrigger,
 } from "@/components/shadcn-ui-components/tabs"
 import BudgetCalculator from "@/components/BudgetCalculator";
+import EditCanasta from "@/components/EditCanasta";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
 import { State, Action, initialState } from "@/types/canasta";
 
@@ -88,6 +89,8 @@ export default function MyCanasta() {
     setName("");
     setBudgetAmount(0);
   }
+
+  const [showEditCanasta, setShowEditCanasta] = useState(false);
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
@@ -172,11 +175,30 @@ export default function MyCanasta() {
           </TabsList>
           {state.canastas.map((canasta) => (
             <TabsContent key={`tab-content-${canasta._id}`} value={canasta.name}>
-              <BudgetCalculator
-                initialBudget={canasta.budget}
-                canastaId={canasta._id}
-                items={canasta.items || []}
-              />
+              {!showEditCanasta ? (
+                <BudgetCalculator
+                  initialBudget={canasta.budget}
+                  canastaId={canasta._id}
+                  items={canasta.items || []}
+                  setShowEditCanasta={setShowEditCanasta} // Pass the state setter
+                />
+              ) : (
+                <EditCanasta
+                  canastaId={canasta._id}
+                  canastaName={canasta.name}
+                  budgetAmount={canasta.budget}
+                  canastaItems={canasta.items || []}
+                  onSaveComplete={(updatedCanasta) => {
+                    const updatedCanastas = state.canastas.map((canasta) =>
+                      canasta._id === updatedCanasta._id ? updatedCanasta : canasta
+                    );
+                  
+                    dispatch({ type: "FETCH_SUCCESS", payload: updatedCanastas }); // Pass the updated array
+                    setShowEditCanasta(false); // Close edit view
+                  }}
+                  onCancel={() => setShowEditCanasta(false)} // Close edit view on cancel
+                />
+              )}
             </TabsContent>
           ))}
           {state.canastas.length === 0 && (

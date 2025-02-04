@@ -95,7 +95,7 @@ export default function MyCanasta() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
       <main className="flex flex-col gap-4 row-start-1 sm:items-center w-full sm:px-0 max-w-full">
-        <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
+        <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-black rounded-lg shadow-md">
           <div className="flex items-center gap-4">
             <div className="flex-grow">
               <label

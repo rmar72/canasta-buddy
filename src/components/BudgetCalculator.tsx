@@ -53,9 +53,9 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
   };
 
   return (
-    <Card className="p-4 mt-4">
+    <Card className="p-4 mt-4 max-w-full">
       <CardContent>
-        <div className="flex flex-row justify-between items-center py-4 pt-0 rounded-lg mb-3 space-x-2">
+        <div className="flex flex-row justify-between items-center py-4 pt-0 rounded-lg mb-3 space-x-2 max-w-full">
           <p className="flex-1 flex flex-col items-center justify-center bg-blue-50 text-blue-800 p-1 rounded-lg shadow-inner">
             Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
           </p>
@@ -65,7 +65,7 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
           </p>
           <SettingsMenu onEdit={() => setShowEditCanasta(true)} />
         </div>
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-4 max-w-full">
           <div className="relative w-full sm:w-80">
             <Input
               type="text"
@@ -98,7 +98,7 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
 
         <ul>
           {items.map((item) => (
-            <li key={item.id} className="flex justify-between border-b py-2">
+            <li key={item.id} className="flex justify-between border-b py-2 max-w-full">
               <span>{item.name}</span>
               <span>${item.price.toFixed(2)}</span>
             </li>

@@ -53,58 +53,59 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
   };
 
   return (
-    <Card className="p-4 mt-4 max-w-full">
-      <CardContent>
-        <div className="flex flex-row justify-between items-center py-4 pt-0 rounded-lg mb-3 space-x-2 max-w-full">
-          <p className="flex-1 flex flex-col items-center justify-center bg-blue-50 text-blue-800 p-1 rounded-lg shadow-inner">
-            Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
-          </p>
-          <div className="w-px h-auto bg-gray-200"></div>
-          <p className="flex-1 flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-1 rounded-lg shadow-inner">
-            Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
-          </p>
-          <SettingsMenu onEdit={() => setShowEditCanasta(true)} />
-        </div>
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-4 max-w-full">
-          <div className="relative w-full sm:w-80">
-            <Input
-              type="text"
-              placeholder="Item Name"
-              value={itemName}
-              onChange={(e) => setItemName(e.target.value)}
-            />
-          </div>
-          <div className="relative w-full sm:w-40">
-            <span className="absolute inset-y-0 left-2 flex items-center text-gray-500 pointer-events-none">$</span>
-            <Input
-              type="number"
-              placeholder="Item Price"
-              value={itemPrice}
-              onChange={(e) => setItemPrice(e.target.value)}
-              className="pl-5"
-            />
-          </div>
-          <Button className="w-full sm:w-auto" onClick={addItem}>Add Item</Button>
-        </div>
+<Card className="p-4 mt-4 max-w-full w-full">
+  <CardContent>
+    {/* Budget Display Section */}
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center py-4 pt-0 rounded-lg mb-3">
+      <p className="flex flex-col items-center justify-center bg-blue-50 text-blue-800 p-1 rounded-lg shadow-inner">
+        Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
+      </p>
+      <div className="w-px h-auto bg-gray-200"></div>
+      <p className="flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-1 rounded-lg shadow-inner">
+        Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
+      </p>
+      <SettingsMenu onEdit={() => setShowEditCanasta(true)} />
+    </div>
 
-        {error && (
-          <p
-            className="text-center animate-fadeIn"
-            style={{ animation: "fadeIn 0.8s ease-in-out", color: 'red' }}
-          >
-            {error}
-          </p>
-        )}
+    {/* Input Section */}
+    <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 mb-4 w-full">
+      <div className="relative w-full sm:w-80">
+        <Input
+          type="text"
+          placeholder="Item Name"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
+        />
+      </div>
+      <div className="relative w-full sm:w-40">
+        <span className="absolute inset-y-0 left-2 flex items-center text-gray-500 pointer-events-none">$</span>
+        <Input
+          type="number"
+          placeholder="Item Price"
+          value={itemPrice}
+          onChange={(e) => setItemPrice(e.target.value)}
+          className="pl-5"
+        />
+      </div>
+      <Button className="w-full sm:w-auto" onClick={addItem}>Add Item</Button>
+    </div>
 
-        <ul>
-          {items.map((item) => (
-            <li key={item.id} className="flex justify-between border-b py-2 max-w-full">
-              <span>{item.name}</span>
-              <span>${item.price.toFixed(2)}</span>
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+    {/* Error Message */}
+    {error && (
+      <p className="text-center text-red-600 animate-pulse">{error}</p>
+    )}
+
+    {/* Items List */}
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item.id} className="flex justify-between border-b py-2 overflow-hidden text-ellipsis">
+          <span className="truncate">{item.name}</span>
+          <span>${item.price.toFixed(2)}</span>
+        </li>
+      ))}
+    </ul>
+  </CardContent>
+</Card>
+
   );
 }

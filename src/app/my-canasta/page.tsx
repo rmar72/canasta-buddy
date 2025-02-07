@@ -159,25 +159,25 @@ export default function MyCanasta() {
     </div>
 
     <Tabs
-  value={selectedTab}
-  onValueChange={(value) => setSelectedTab(value)}
-  className="w-full max-w-2xl mt-1"
->
-  {/* Tabs List */}
-  <TabsList className="flex flex-wrap justify-center gap-2 bg-gray-100 p-4 rounded-lg shadow-md">
-    {state.canastas.map((canasta) => (
-      <TabsTrigger
-        key={`tab-${canasta._id}`}
-        value={canasta.name}
-        className={`px-4 py-2 text-sm font-semibold rounded-lg focus:outline-none
-          data-[state=active]:bg-green-200 data-[state=active]:text-green-800
-          bg-white text-gray-700 hover:bg-green-200 hover:text-green-800
-          transition-all ease-in-out duration-150`}
-      >
-        {canasta.name}
-      </TabsTrigger>
-    ))}
-  </TabsList>
+      value={selectedTab}
+      onValueChange={(value) => setSelectedTab(value)}
+      className="w-full max-w-2xl mt-1"
+    >
+      {/* Tabs List */}
+      <TabsList className="flex flex-wrap justify-center gap-2 bg-gray-100 rounded-lg shadow-md w-full max-w-full">
+      {state.canastas.map((canasta) => (
+        <TabsTrigger
+          key={`tab-${canasta._id}`}
+          value={canasta.name}
+          className={`px-4 text-sm font-semibold rounded-lg focus:outline-none
+            data-[state=active]:bg-green-200 data-[state=active]:text-green-800
+            bg-white text-gray-700 hover:bg-green-200 hover:text-green-800
+            transition-all ease-in-out duration-150`}
+        >
+          {canasta.name}
+        </TabsTrigger>
+      ))}
+    </TabsList>
 
   {/* Tabs Content */}
   {state.canastas.map((canasta) => (

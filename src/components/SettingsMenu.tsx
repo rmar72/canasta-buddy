@@ -24,7 +24,7 @@ export default function SettingsMenu({ onEdit }: SettingsMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button className="w-full sm:w-auto" variant="outline">
           <AiTwotoneSetting />
         </Button>
       </DropdownMenuTrigger>

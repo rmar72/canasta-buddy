@@ -56,15 +56,29 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
 <Card className="p-4 mt-4 max-w-full w-full">
   <CardContent>
     {/* Budget Display Section */}
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center py-4 pt-0 rounded-lg mb-3">
-      <p className="flex flex-col items-center justify-center bg-blue-50 text-blue-800 p-1 rounded-lg shadow-inner">
-        Total Budget: <span className="font-semibold"><span className="text-green-500">$</span>{initialBudget.toFixed(2)}</span>
-      </p>
-      <div className="w-px h-auto bg-gray-200"></div>
-      <p className="flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-1 rounded-lg shadow-inner">
-        Remaining Budget: <span className="font-semibold"><span className="text-green-500">$</span>{remainingBudget.toFixed(2)}</span>
-      </p>
-      <SettingsMenu onEdit={() => setShowEditCanasta(true)} />
+    <div className="grid grid-cols-2 sm:grid-cols-[1fr_1fr_auto] gap-4 items-center py-4 pt-0 rounded-lg mb-3">
+      {/* Total Budget */}
+      <div className="flex flex-col items-center justify-center bg-blue-50 text-blue-800 p-2 rounded-lg shadow-inner">
+        <span className="font-medium">Total Budget:</span>
+        <span className="font-semibold">
+          <span className="text-green-500">$</span>
+          {initialBudget.toFixed(2)}
+        </span>
+      </div>
+
+      {/* Remaining Budget */}
+      <div className="flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-2 rounded-lg shadow-inner">
+        <span className="font-medium">Remaining Budget:</span>
+        <span className="font-semibold">
+          <span className="text-green-500">$</span>
+          {remainingBudget.toFixed(2)}
+        </span>
+      </div>
+
+      {/* Settings Menu */}
+      <div className="col-span-2 sm:col-span-1 sm:mt-0 flex justify-center sm:justify-end w-full">
+        <SettingsMenu onEdit={() => setShowEditCanasta(true)} />
+      </div>
     </div>
 
     {/* Input Section */}

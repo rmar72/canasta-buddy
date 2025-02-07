@@ -67,7 +67,7 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
       </div>
 
       {/* Remaining Budget */}
-      <div className="flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-2 rounded-lg shadow-inner">
+      <div className="flex flex-col items-center justify-center bg-yellow-50 font-medium text-yellow-800 p-2 rounded-lg shadow-inner text-center">
         <span className="font-medium">Remaining Budget:</span>
         <span className="font-semibold">
           <span className="text-green-500">$</span>

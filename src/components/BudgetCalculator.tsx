@@ -106,7 +106,7 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
 
     {/* Error Message */}
     {error && (
-      <p className="text-center text-red-600 animate-pulse">{error}</p>
+      <p className="text-center animate-pulse" style={{ color: 'red' }}>{error}</p>
     )}
 
     {/* Items List */}

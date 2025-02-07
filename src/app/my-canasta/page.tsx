@@ -152,9 +152,7 @@ export default function MyCanasta() {
 
           {/* Error Message */}
           {state.error && (
-            <p className="text-center text-red-400 animate-fadeIn">
-              {state.error}
-            </p>
+            <p className="text-center animate-pulse" style={{ color: 'red' }}>{state.error}</p>
           )}
         </div>
 

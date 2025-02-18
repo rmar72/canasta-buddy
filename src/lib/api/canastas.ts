@@ -49,7 +49,7 @@ export async function addItemToCanastaApi(canastaId: string, item: { name: strin
 }
 
 export async function updateCanasta(canastaId: string, updatedData: Partial<{ name: string; budget: number; items: FoodItem[] }>) {
-  const response = await fetch("/api/canastas/update", {
+  const response = await fetch("/api/canastas/edit", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

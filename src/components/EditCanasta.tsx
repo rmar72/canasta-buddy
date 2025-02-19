@@ -25,17 +25,73 @@ export default function EditCanasta({
   onCancel,
 }: EditCanastaProps) {
   const [name, setName] = useState(canastaName);
-  const [budget, setBudget] = useState(budgetAmount);
   const [items, setItems] = useState<FoodItem[]>(canastaItems || []);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Calculate total price of items
+  const totalItemCost = items.reduce((sum, item) => sum + item.price, 0);
+
+  // Ensure the budget cannot be below item total cost, with a minimum of $0.01
+  const [budget, setBudget] = useState(Math.max(budgetAmount, totalItemCost || 0.01));
+  const [rawBudgetInput, setRawBudgetInput] = useState(String(budget)); // Handles smooth typing
+
+  const validateBudget = (value: number) => {
+    if (value < totalItemCost) {
+      setError(`Budget cannot be lower than the total item cost: $${totalItemCost.toFixed(2)}`);
+      return totalItemCost;
+    }
+    if (items.length === 0 && value < 0.01) {
+      setError("Budget must be at least $0.01.");
+      return 0.01;
+    }
+    setError("");
+    return value;
+  };
+
+  const handleBudgetChange = (input: string) => {
+    setRawBudgetInput(input);
+  };
+
+  const handleBudgetBlur = () => {
+    const numericValue = Number(rawBudgetInput);
+    if (!isNaN(numericValue)) {
+      const validBudget = validateBudget(numericValue);
+      setBudget(validBudget);
+      setRawBudgetInput(validBudget.toFixed(2)); // Format the budget properly
+    }
+  };
+
+  // Handle food item changes
   const handleItemChange = (index: number, field: keyof FoodItem, value: string | number) => {
     const updatedItems = [...items];
     updatedItems[index] = { ...updatedItems[index], [field]: value };
     setItems(updatedItems);
+  
+    // Calculate new total item cost
+    const newTotal = updatedItems.reduce((sum, item) => sum + item.price, 0) || 0.01;
+  
+    // Update budget if necessary
+    setBudget((prevBudget) => {
+      const updatedBudget = Math.max(prevBudget, newTotal);
+      setRawBudgetInput(updatedBudget.toFixed(2)); // Ensure input stays in sync
+      return updatedBudget;
+    });
+  };
+  
+
+  // Delete an item from the list
+  const handleDeleteItem = (index: number) => {
+    const updatedItems = items.filter((_, i) => i !== index);
+    setItems(updatedItems);
+
+    // Recalculate minimum budget
+    const newTotal = updatedItems.reduce((sum, item) => sum + item.price, 0) || 0.01;
+    setBudget(Math.max(newTotal, 0.01));
+    setRawBudgetInput(Math.max(newTotal, 0.01).toFixed(2));
   };
 
+  // Handle Save
   const handleSave = async () => {
     if (!name.trim() || budget <= 0) {
       setError("Canasta name and budget must be valid.");
@@ -47,7 +103,7 @@ export default function EditCanasta({
       const { canasta: updatedCanasta } = await updateCanasta(canastaId, { name, budget, items });
       onSaveComplete?.(updatedCanasta); // Notify parent of the save
     } catch (err) {
-      console.error(err)
+      console.error(err);
       setError("Failed to save changes. Please try again.");
     } finally {
       setLoading(false);
@@ -80,8 +136,9 @@ export default function EditCanasta({
             id="canastaBudget"
             placeholder="Enter Budget Amount"
             type="number"
-            value={budget}
-            onChange={(e) => setBudget(Number(e.target.value))}
+            value={rawBudgetInput}
+            onChange={(e) => handleBudgetChange(e.target.value)}
+            onBlur={handleBudgetBlur}
             className="w-full"
           />
         </div>
@@ -102,6 +159,9 @@ export default function EditCanasta({
                 onChange={(e) => handleItemChange(index, "price", Number(e.target.value))}
                 className="w-32"
               />
+              <Button variant="destructive" size="sm" onClick={() => handleDeleteItem(index)}>
+                Delete
+              </Button>
             </div>
           ))}
         </div>

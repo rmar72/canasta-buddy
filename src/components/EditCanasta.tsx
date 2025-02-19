@@ -44,7 +44,7 @@ export default function EditCanasta({
 
     setLoading(true);
     try {
-      const updatedCanasta = await updateCanasta(canastaId, { name, budget, items });
+      const { canasta: updatedCanasta } = await updateCanasta(canastaId, { name, budget, items });
       onSaveComplete?.(updatedCanasta); // Notify parent of the save
     } catch (err) {
       console.error(err)

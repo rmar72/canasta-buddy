@@ -5,8 +5,6 @@ import clientPromise from "@/db/mongodb";
 import { ObjectId } from "mongodb";
 import { FoodItem } from "@/types/canasta";
 
-
-
 export async function PUT(req: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -56,7 +54,17 @@ export async function PUT(req: Request) {
       return NextResponse.json({ error: "Canasta not found or you do not have access" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "Canasta updated successfully" });
+    const updatedCanasta = {
+      _id: ObjectId.createFromHexString(canastaId),
+      userId,
+      ...updateData
+    }
+
+    return NextResponse.json({
+      canasta: updatedCanasta,
+      message: "Canasta updated successfully",
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

@@ -18,6 +18,7 @@ export type BudgetCalculatorProps = {
   canastaId: string; // Pass canastaId for API calls
   items: FoodItem[];
   setShowEditCanasta: (value: boolean) => void;
+  setGlobalItems: (id: string, list: FoodItem[]) => void;
 };
 
 export interface State {

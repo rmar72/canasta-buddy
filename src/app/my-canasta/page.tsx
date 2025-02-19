@@ -12,7 +12,7 @@ import {
 import BudgetCalculator from "@/components/BudgetCalculator";
 import EditCanasta from "@/components/EditCanasta";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
-import { State, Action, initialState, Canasta } from "@/types/canasta";
+import { State, Action, initialState, Canasta, FoodItem } from "@/types/canasta";
 
 
 function reducer(state: State, action: Action): State {
@@ -106,6 +106,14 @@ export default function MyCanasta() {
     }
     setShowEditCanasta(false);
   }
+
+  const setGlobalItems = (canastaId: string, updatedItems: FoodItem[]) => {
+    const updatedCanastas = state.canastas.map((canasta) =>
+      canasta._id === canastaId ? { ...canasta, items: updatedItems } : canasta
+    );
+  
+    dispatch({ type: "FETCH_SUCCESS", payload: updatedCanastas });
+  };
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
@@ -201,6 +209,7 @@ export default function MyCanasta() {
                   canastaId={canasta._id}
                   items={canasta.items || []}
                   setShowEditCanasta={setShowEditCanasta}
+                  setGlobalItems={setGlobalItems}
                 />
               ) : (
                 <EditCanasta

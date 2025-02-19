@@ -9,7 +9,7 @@ import { FoodItem, BudgetCalculatorProps } from "@/types/canasta";
 import { v4 as uuidv4 } from "uuid";
 import SettingsMenu from "@/components/SettingsMenu";
 
-export default function BudgetCalculator({ initialBudget, canastaId, items: initialItems, setShowEditCanasta }: BudgetCalculatorProps) {
+export default function BudgetCalculator({ initialBudget, canastaId, items: initialItems, setShowEditCanasta, setGlobalItems }: BudgetCalculatorProps) {
   const [items, setItems] = useState<FoodItem[]>(initialItems);
   const [remainingBudget, setRemainingBudget] = useState(initialBudget);
   const [itemName, setItemName] = useState("");
@@ -24,33 +24,38 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
   
   const addItem = async () => {
     const price = parseFloat(itemPrice);
-
+  
     if (!itemName || isNaN(price) || price <= 0) {
       setError("Please provide a valid item name and price.");
       return;
     }
-
+  
     if (remainingBudget - price < 0) {
       setError("Adding this item exceeds your budget!");
       return;
     }
-
+  
     const newItem = {
       name: itemName,
       price: price,
       id: uuidv4(),
     };
-
+  
     try {
       await addItemToCanastaApi(canastaId, newItem);
-      setItems([...items, newItem]);
+
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
       setRemainingBudget(remainingBudget - price);
       setItemName("");
       setItemPrice("");
+  
+      setGlobalItems(canastaId, updatedItems);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     }
   };
+  
 
   return (
 <Card className="p-4 mt-4 max-w-full w-full">

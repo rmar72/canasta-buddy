@@ -12,7 +12,7 @@ import {
 import BudgetCalculator from "@/components/BudgetCalculator";
 import EditCanasta from "@/components/EditCanasta";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
-import { State, Action, initialState } from "@/types/canasta";
+import { State, Action, initialState, Canasta } from "@/types/canasta";
 
 
 function reducer(state: State, action: Action): State {
@@ -91,6 +91,21 @@ export default function MyCanasta() {
   }
 
   const [showEditCanasta, setShowEditCanasta] = useState(false);
+
+  const handleSaveComplete = (updatedCanasta: Canasta): void => {
+    const updatedCanastas = state.canastas.map((canasta) =>
+      canasta._id === updatedCanasta._id ? updatedCanasta : canasta
+    );
+    dispatch({ type: "FETCH_SUCCESS", payload: updatedCanastas }); 
+    if (selectedTab === updatedCanasta.name) {
+      setSelectedTab(updatedCanasta.name);
+    } else {
+      // If the updated name changed, find the updated canasta and set it as selected
+      const exists = updatedCanastas.find(c => c.name === selectedTab);
+      setSelectedTab(exists ? selectedTab : updatedCanasta.name);
+    }
+    setShowEditCanasta(false);
+  }
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
@@ -193,13 +208,7 @@ export default function MyCanasta() {
                   canastaName={canasta.name}
                   budgetAmount={canasta.budget}
                   canastaItems={canasta.items || []}
-                  onSaveComplete={(updatedCanasta) => {
-                    const updatedCanastas = state.canastas.map((canasta) =>
-                      canasta._id === updatedCanasta._id ? updatedCanasta : canasta
-                    );
-                    dispatch({ type: "FETCH_SUCCESS", payload: updatedCanastas });
-                    setShowEditCanasta(false);
-                  }}
+                  onSaveComplete={(updatedCanasta) => handleSaveComplete(updatedCanasta)}
                   onCancel={() => setShowEditCanasta(false)}
                 />
               )}

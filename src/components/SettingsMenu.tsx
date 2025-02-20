@@ -28,7 +28,7 @@ export default function SettingsMenu({ onEdit }: SettingsMenuProps) {
           <AiTwotoneSetting />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[180px] sm:w-56">
         <DropdownMenuLabel>Canasta Settings</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

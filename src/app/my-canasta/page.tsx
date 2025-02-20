@@ -115,6 +115,8 @@ export default function MyCanasta() {
   
     dispatch({ type: "FETCH_SUCCESS", payload: updatedCanastas });
   };
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
@@ -181,7 +183,7 @@ export default function MyCanasta() {
         </div>
 
         <div className="sm:hidden w-full mb-0">
-          <Popover>
+          <Popover open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-full">
                 <span className="text-gray-700">Canasta:</span>
@@ -189,14 +191,17 @@ export default function MyCanasta() {
                 <ChevronDown className="w-4 h-4 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-full">
+            <PopoverContent align="start" className="w-[var(--radix-popover-trigger-width)] min-w-full p-1 bg-white border rounded-lg shadow-md">
               <div className="flex flex-col">
                 {state.canastas.map((canasta) => (
                   <Button
                     key={canasta._id}
                     variant={selectedTab === canasta.name ? "secondary" : "ghost"}
-                    onClick={() => setSelectedTab(canasta.name)}
-                    className="text-left"
+                    onClick={() => {
+                      setSelectedTab(canasta.name);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full justify-start px-4 py-2 text-left"
                   >
                     {canasta.name}
                   </Button>

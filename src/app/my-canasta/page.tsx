@@ -9,11 +9,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/shadcn-ui-components/tabs"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/shadcn-ui-components/popover";
 import BudgetCalculator from "@/components/BudgetCalculator";
 import EditCanasta from "@/components/EditCanasta";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
 import { State, Action, initialState, Canasta, FoodItem } from "@/types/canasta";
-
+import { ChevronDown } from "lucide-react";
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -179,26 +180,53 @@ export default function MyCanasta() {
           )}
         </div>
 
+        <div className="sm:hidden w-full mb-0">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full">
+                <span className="text-gray-700">Canasta:</span>
+                {selectedTab !== "empty" ? selectedTab : "Select Canasta"}
+                <ChevronDown className="w-4 h-4 ml-2" />              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full">
+              <div className="flex flex-col">
+                {state.canastas.map((canasta) => (
+                  <Button
+                    key={canasta._id}
+                    variant={selectedTab === canasta.name ? "secondary" : "ghost"}
+                    onClick={() => setSelectedTab(canasta.name)}
+                    className="text-left"
+                  >
+                    {canasta.name}
+                  </Button>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+
         <Tabs
           value={selectedTab}
           onValueChange={(value) => setSelectedTab(value)}
           className="w-full max-w-2xl mt-1"
         >
-          {/* Tabs List */}
-          <TabsList className="flex flex-wrap overflow-auto justify-center gap-2 bg-gray-100 rounded-lg shadow-md w-full max-w-full">
-            {state.canastas.map((canasta) => (
-              <TabsTrigger
-                key={`tab-${canasta._id}`}
-                value={canasta.name}
-                className={`px-4 text-sm font-semibold rounded-lg focus:outline-none
-                  data-[state=active]:bg-green-200 data-[state=active]:text-green-800
-                  bg-white text-gray-700 hover:bg-green-200 hover:text-green-800
-                  transition-all ease-in-out duration-150`}
-              >
-                {canasta.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="hidden sm:block">
+            {/* Tabs List */}
+            <TabsList className="flex flex-wrap overflow-auto justify-center gap-2 bg-gray-100 rounded-lg shadow-md w-full max-w-full">
+              {state.canastas.map((canasta) => (
+                <TabsTrigger
+                  key={`tab-${canasta._id}`}
+                  value={canasta.name}
+                  className={`px-4 text-sm font-semibold rounded-lg focus:outline-none
+                    data-[state=active]:bg-green-200 data-[state=active]:text-green-800
+                    bg-white text-gray-700 hover:bg-green-200 hover:text-green-800
+                    transition-all ease-in-out duration-150`}
+                >
+                  {canasta.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
 
           {/* Tabs Content */}
           {state.canastas.map((canasta) => (

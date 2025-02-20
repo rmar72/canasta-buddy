@@ -186,7 +186,8 @@ export default function MyCanasta() {
               <Button variant="outline" className="w-full">
                 <span className="text-gray-700">Canasta:</span>
                 {selectedTab !== "empty" ? selectedTab : "Select Canasta"}
-                <ChevronDown className="w-4 h-4 ml-2" />              </Button>
+                <ChevronDown className="w-4 h-4 ml-2" />
+              </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full">
               <div className="flex flex-col">

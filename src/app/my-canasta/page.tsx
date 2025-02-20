@@ -14,7 +14,7 @@ import BudgetCalculator from "@/components/BudgetCalculator";
 import EditCanasta from "@/components/EditCanasta";
 import { fetchCanastasApi, createCanastaApi } from "../../lib/api/canastas";
 import { State, Action, initialState, Canasta, FoodItem } from "@/types/canasta";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react"; 
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -117,13 +117,29 @@ export default function MyCanasta() {
   };
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   
   return (
     <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-screen">
       <main className="grid gap-4 justify-items-center max-w-5xl w-full px-4 mx-auto">
         <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
-          <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_auto] gap-4 items-center w-full">
-            {/* Canasta Name Input */}
+
+          {/* Mobile Toggle Button */}
+          <div className="sm:hidden flex justify-between items-center w-full py-3 border-b border-gray-300">
+            <span className="text-gray-600 font-semibold text-md">Add New Canasta</span>
+            <Button
+              variant="outline"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="flex items-center px-3 py-1.5 text-gray-700 font-medium"
+            >
+              {isExpanded ? "Hide Form" : "Expand Form"}
+              {isExpanded ? <ChevronUp className="w-4 h-4 ml-1" /> : <ChevronDown className="w-4 h-4 ml-1" />}
+            </Button>
+          </div>
+
+          {/* Input Section (Collapsible on Mobile) */}
+          <div className={`${isExpanded ? "block space-y-4" : "hidden"} sm:grid grid-cols-1 sm:grid-cols-[2fr_1fr_auto] gap-6 items-center w-full`}>
+          {/* Canasta Name Input */}
             <div>
               <label
                 htmlFor="canastaName"

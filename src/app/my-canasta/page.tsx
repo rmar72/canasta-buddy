@@ -125,15 +125,17 @@ export default function MyCanasta() {
         <div className="w-full max-w-2xl mt-1 p-4 space-y-4 bg-white rounded-lg shadow-md">
 
           {/* Mobile Toggle Button */}
-          <div className="sm:hidden flex justify-between items-center w-full py-3 border-b border-gray-300">
-            <span className="text-gray-600 font-semibold text-md">Add New Canasta</span>
+          <div className="sm:hidden flex flex-col items-center w-full py-3 border-b border-gray-300">
             <Button
               variant="outline"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="flex items-center px-3 py-1.5 text-gray-700 font-medium"
+              className="flex items-center px-4 py-2 text-gray-700 font-medium"
             >
-              {isExpanded ? "Hide Form" : "Expand Form"}
-              {isExpanded ? <ChevronUp className="w-4 h-4 ml-1" /> : <ChevronDown className="w-4 h-4 ml-1" />}
+              <span className="text-gray-600 font-semibold text-md">
+                {isExpanded ? "Hide Form" : "Add New Canasta"}
+              </span>
+
+              {isExpanded ? <ChevronUp className="w-5 h-5 ml-2" /> : <ChevronDown className="w-5 h-5 ml-2" />}
             </Button>
           </div>
 

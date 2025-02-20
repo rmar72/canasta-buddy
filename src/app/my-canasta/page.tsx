@@ -230,10 +230,11 @@ export default function MyCanasta() {
         </div>
 
         <Tabs
-          value={selectedTab}
-          onValueChange={(value) => setSelectedTab(value)}
-          className="w-full max-w-2xl mt-1"
-        >
+  value={selectedTab}
+  onValueChange={(value) => setSelectedTab(value)}
+  className="w-full max-w-2xl sm:mt-1 mt-[-25px]"
+>
+
           <div className="hidden sm:block">
             {/* Tabs List */}
             <TabsList className="flex flex-wrap overflow-auto justify-center gap-2 bg-gray-100 rounded-lg shadow-md w-full max-w-full">

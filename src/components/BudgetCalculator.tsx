@@ -30,11 +30,6 @@ export default function BudgetCalculator({ initialBudget, canastaId, items: init
       return;
     }
   
-    if (remainingBudget - price < 0) {
-      setError("Adding this item exceeds your budget!");
-      return;
-    }
-  
     const newItem = {
       name: itemName,
       price: price,
